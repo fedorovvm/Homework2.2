@@ -2,27 +2,25 @@ package org.skypro.skyshop.basket;
 
 import org.skypro.skyshop.product.Product;
 
+
 public class ProductBasket {
 
     private static final Product[] products = new Product[5];
 
-     public void addingProductToTheBasket(String title, int price) {
-        int e = 0;
-        for (Product product : products) {
-            if (product != null) {
-                e++;
-            } else if (product == null) {
-                products[e] = new Product(title, price);
-                break;
-            }
-            if (e == products.length) {
-                System.out.println("Невозможно добавить продукт.");
-            }
-        }
-    }
+    private static int e = 0;
+     public void addingProductToTheBasket(Product product) {
+         if (e >= products.length) {
+             System.out.println("Невозможно добавить продукт.");
+         } else if (products[e] != null && e <= products.length) {
+             e++;
+         } else if (products[e] == null && e <= products.length) {
+             products[e] = product;
+             e++;
+         }
+     }
 
-    public int gettingTotalCostOfTheBasket() {
-        int totalCostOfTheBasket = 0;
+    public double gettingTotalCostOfTheBasket() {
+        double totalCostOfTheBasket = 0;
         for (Product product : ProductBasket.products) {
             if (product != null) {
                 totalCostOfTheBasket += product.getPrice();
@@ -35,6 +33,7 @@ public class ProductBasket {
 
     public void printsTheContentsOfTheBasket() {
         int content = 0;
+        int sumSpecialProdukt = 0;
         for (Product product : products)
             if (product != null) {
                 System.out.println(product);
@@ -43,7 +42,12 @@ public class ProductBasket {
         if (content == 0) {
                 System.out.println("В корзине пусто.");
             }
+        for (Product product : products)
+            if (product != null && product.isSpecial()) {
+                sumSpecialProdukt++;
+            }
         System.out.println("Итого: " + gettingTotalCostOfTheBasket());
+        System.out.println("Специальных товаров: " + sumSpecialProdukt);
     }
 
     public boolean searchProduct(String titleProduct) {
