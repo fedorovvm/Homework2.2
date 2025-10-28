@@ -7,15 +7,13 @@ public class ProductBasket {
 
     private static final Product[] products = new Product[5];
 
-    private static int e = 0;
+    private static int size = 0;
      public void addingProductToTheBasket(Product product) {
-         if (e >= products.length) {
+         if (size >= products.length) {
              System.out.println("Невозможно добавить продукт.");
-         } else if (products[e] != null && e <= products.length) {
-             e++;
-         } else if (products[e] == null && e <= products.length) {
-             products[e] = product;
-             e++;
+         } else if (products[size] == null && size <= products.length) {
+             products[size] = product;
+             size++;
          }
      }
 
