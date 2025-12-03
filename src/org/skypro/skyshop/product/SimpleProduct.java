@@ -21,5 +21,17 @@ public class SimpleProduct extends Product {
     public boolean isSpecial () {
         return false;
     }
+    @Override
+    public String gettingContentType() {
+        return "SIMPLEPRODUCT";
+    }
+    @Override
+    public String gettingSearchTerm() {
+        return super.gettingSearchTerm();
+    }
+    @Override
+    public String getStringRepresentation() {
+        return super.getStringRepresentation();
+    }
 }
 
