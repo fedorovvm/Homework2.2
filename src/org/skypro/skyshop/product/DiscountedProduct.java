@@ -23,4 +23,18 @@ public class DiscountedProduct extends Product {
     public boolean isSpecial () {
         return true;
     }
+
+
+    public String gettingSearchTerm() {
+        return super.getTitle();
+    }
+    @Override
+    public String gettingContentType() {
+        return "DISCOUNTPRODUCT";
+    }
+
+
+    public String getStringRepresentation() {
+        return super.getStringRepresentation();
+    }
 }

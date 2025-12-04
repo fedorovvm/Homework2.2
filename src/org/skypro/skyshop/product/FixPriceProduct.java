@@ -21,4 +21,15 @@ public class FixPriceProduct extends Product {
         return true;
     }
 
+    public String gettingSearchTerm() {
+        return super.getTitle();
+    }
+    @Override
+    public String gettingContentType() {
+        return "FIXPRICEPRODUCT";
+    }
+
+    public String getStringRepresentation() {
+        return super.getStringRepresentation();
+    }
 }
