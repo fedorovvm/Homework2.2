@@ -24,7 +24,7 @@ public class DiscountedProduct extends Product {
         return true;
     }
 
-    @Override
+
     public String gettingSearchTerm() {
         return super.getTitle();
     }
@@ -33,7 +33,7 @@ public class DiscountedProduct extends Product {
         return "DISCOUNTPRODUCT";
     }
 
-    @Override
+
     public String getStringRepresentation() {
         return super.getStringRepresentation();
     }

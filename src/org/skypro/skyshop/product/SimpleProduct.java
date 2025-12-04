@@ -25,11 +25,11 @@ public class SimpleProduct extends Product {
     public String gettingContentType() {
         return "SIMPLEPRODUCT";
     }
-    @Override
+
     public String gettingSearchTerm() {
         return super.gettingSearchTerm();
     }
-    @Override
+
     public String getStringRepresentation() {
         return super.getStringRepresentation();
     }

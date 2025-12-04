@@ -21,7 +21,6 @@ public class FixPriceProduct extends Product {
         return true;
     }
 
-    @Override
     public String gettingSearchTerm() {
         return super.getTitle();
     }
@@ -29,7 +28,7 @@ public class FixPriceProduct extends Product {
     public String gettingContentType() {
         return "FIXPRICEPRODUCT";
     }
-    @Override
+
     public String getStringRepresentation() {
         return super.getStringRepresentation();
     }
