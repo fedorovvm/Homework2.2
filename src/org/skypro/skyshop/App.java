@@ -1,12 +1,10 @@
 package org.skypro.skyshop;
-import org.skypro.skyshop.article.Article;
+
 import org.skypro.skyshop.basket.ProductBasket;
 import org.skypro.skyshop.product.DiscountedProduct;
 import org.skypro.skyshop.product.FixPriceProduct;
 import org.skypro.skyshop.product.Product;
 import org.skypro.skyshop.product.SimpleProduct;
-import java.util.Arrays;
-import static org.skypro.skyshop.SearchEngine.add;
 
 public class App {
     public static void main(String[] args) {
@@ -34,26 +32,5 @@ public class App {
         basket.gettingTotalCostOfTheBasket();
         basket.printsTheContentsOfTheBasket();
         basket.searchProduct("Часы");
-
-        SearchEngine searchEngine = new SearchEngine(10);
-        add(new SimpleProduct("Ноутбук", 50000));
-        add(new DiscountedProduct("Рубашка", 1000, 5));
-        add(new FixPriceProduct("Чехол для смартфона"));
-        add(new SimpleProduct("Часы", 5000));
-        add(new SimpleProduct("Часы", 3000));
-        add(new DiscountedProduct("Книга", 900, 10));
-
-        add(new Article("Ноутбук", "Китайский Ноутбук"));
-        add(new Article("Часы", "Швейцарские Часы"));
-        add(new Article("Рубашка", "Шелковая Рубашка"));
-        add(new Article("Книга", "Занимательная Книга"));
-
-        System.out.println("Arrays.toString(SearchEngine.search(\"Часы\")) = " + Arrays.toString(SearchEngine.search("Часы")));
-        System.out.println("Arrays.toString(SearchEngine.search(\"Рубашка\")) = " + Arrays.toString(SearchEngine.search("Рубашка")));
-        System.out.println("Arrays.toString(SearchEngine.search(\"Книга\")) = " + Arrays.toString(SearchEngine.search("Книга")));
-
-
-
     }
-
 }
