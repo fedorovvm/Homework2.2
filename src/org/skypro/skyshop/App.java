@@ -13,8 +13,24 @@ public class App {
 
         ProductBasket basket = new ProductBasket();
 
+        try {
+            SimpleProduct product1 = new SimpleProduct("Ноутбук", 50000);
+            product1.checkTitle(product1.getTitle());
+            product1.checkPrice(product1.getPrice());
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+        }
+
+        try {
+            DiscountedProduct product2 = new DiscountedProduct("Рубашка", 1000, 100);
+            product2.checkBasicPrice(product2.getBasicPrice());
+            product2.checkPercentDiscount(product2.getPercentDiscount());
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+        }
+
         Product product1 = new SimpleProduct("Ноутбук", 50000);
-        Product product2 = new DiscountedProduct("Рубашка", 1000, 5);
+        Product product2 = new DiscountedProduct("Рубашка", 1000, 100);
         Product product3 = new FixPriceProduct("Чехол для смартфона");
         Product product4 = new SimpleProduct("Часы", 5000);
         Product product5 = new DiscountedProduct("Книга", 900, 10);
@@ -37,7 +53,7 @@ public class App {
 
         SearchEngine searchEngine = new SearchEngine(10);
         add(new SimpleProduct("Ноутбук", 50000));
-        add(new DiscountedProduct("Рубашка", 1000, 5));
+        add(new DiscountedProduct("Рубашка Рубашка Рубашка", 1000, 5));
         add(new FixPriceProduct("Чехол для смартфона"));
         add(new SimpleProduct("Часы", 5000));
         add(new SimpleProduct("Часы", 3000));
@@ -45,15 +61,17 @@ public class App {
 
         add(new Article("Ноутбук", "Китайский Ноутбук"));
         add(new Article("Часы", "Швейцарские Часы"));
-        add(new Article("Рубашка", "Шелковая Рубашка"));
-        add(new Article("Книга", "Занимательная Книга"));
+        add(new Article("Книга", "Занимательная книга"));
+        add(new Article("Книга 'Война и мир'", "Всем книгам книга"));
 
         System.out.println("Arrays.toString(SearchEngine.search(\"Часы\")) = " + Arrays.toString(SearchEngine.search("Часы")));
         System.out.println("Arrays.toString(SearchEngine.search(\"Рубашка\")) = " + Arrays.toString(SearchEngine.search("Рубашка")));
         System.out.println("Arrays.toString(SearchEngine.search(\"Книга\")) = " + Arrays.toString(SearchEngine.search("Книга")));
 
-
-
+        try {
+            SearchEngine.searchBestResult("Книга");
+        } catch (BestResultNotFound e) {
+            System.out.println(e);
+        }
     }
-
 }
