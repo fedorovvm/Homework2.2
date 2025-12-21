@@ -33,5 +33,11 @@ public class SimpleProduct extends Product {
     public String getStringRepresentation() {
         return super.getStringRepresentation();
     }
+
+    public static void checkPrice(int price) throws IllegalArgumentException {
+        if (price < 0) {
+            throw new IllegalArgumentException();
+        }
+    }
 }
 

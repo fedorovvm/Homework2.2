@@ -6,6 +6,7 @@ public abstract class Product implements Searchable {
     final String title;
 
 
+
     public Product(String title) {
         this.title = title;
 
@@ -28,6 +29,12 @@ public abstract class Product implements Searchable {
     @Override
     public String getStringRepresentation() {
         return gettingSearchTerm() + " - " + gettingContentType();
+    }
+    public static void checkTitle(String title) throws IllegalArgumentException {
+        if (title.isBlank()) {
+            throw new IllegalArgumentException();
+        }
+
     }
 }
 

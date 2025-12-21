@@ -28,7 +28,7 @@ public final class Article implements Searchable {
     }
 
     public String gettingSearchTerm() {
-        return this.titleArticle + this.textArticle;
+        return this.titleArticle + " " + this.textArticle;
     }
 
 }
