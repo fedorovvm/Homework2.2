@@ -14,10 +14,17 @@ public class DiscountedProduct extends Product {
 
 
 
-    public DiscountedProduct(String title, double basicPrice, int percentDiscount) {
+    public DiscountedProduct(String title, double basicPrice, int percentDiscount) throws IllegalArgumentException {
         super(title);
         this.basicPrice = basicPrice;
         this.percentDiscount = percentDiscount;
+
+        if (basicPrice < 0) {
+            throw new IllegalArgumentException("Неверно указана базовая цена товара");
+        }
+        if (percentDiscount < 0 || percentDiscount > 100) {
+            throw new IllegalArgumentException("Неверно указан процент скидки товара");
+        }
 
     }
     @Override
@@ -48,15 +55,15 @@ public class DiscountedProduct extends Product {
         return super.getStringRepresentation();
     }
 
-    public static void checkBasicPrice(double basicPrice) throws IllegalArgumentException {
+    public void checkBasicPrice(double basicPrice) throws IllegalArgumentException {
         if (basicPrice < 0) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("Неверно указана базовая цена товара");
         }
     }
 
-    public static void checkPercentDiscount(int percentDiscount) throws IllegalArgumentException {
+    public void checkPercentDiscount(int percentDiscount) throws IllegalArgumentException {
         if (percentDiscount < 0 || percentDiscount > 100) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("Неверно указан процент скидки товара");
         }
     }
 

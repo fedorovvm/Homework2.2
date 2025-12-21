@@ -4,9 +4,13 @@ public class SimpleProduct extends Product {
 
     private final int price;
 
-    public SimpleProduct(String title, int price) {
+    public SimpleProduct(String title, int price) throws IllegalArgumentException {
         super(title);
         this.price = price;
+
+        if (price < 0) {
+            throw new IllegalArgumentException("Неверно указана цена товара");
+        }
     }
 
     @Override
@@ -34,9 +38,9 @@ public class SimpleProduct extends Product {
         return super.getStringRepresentation();
     }
 
-    public static void checkPrice(int price) throws IllegalArgumentException {
+    public void checkPrice(int price) throws IllegalArgumentException {
         if (price < 0) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("Неверно указана цена товара");
         }
     }
 }

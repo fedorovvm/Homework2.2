@@ -27,13 +27,13 @@ public class SearchEngine {
         }
     }
 
-    public static Object searchBestResult(String search) throws BestResultNotFound {
+    public static Searchable searchBestResult(String search) throws BestResultNotFound {
         int number;
         int best = 0;
         int index;
         int indexSubstring;
         String str;
-        Object bestResult = null;
+        Searchable bestResult = null;
         for (Searchable n : searchables) {
             str = n.gettingSearchTerm().toLowerCase();
             number = 0;
@@ -51,10 +51,9 @@ public class SearchEngine {
             }
         }
         if (bestResult == null) {
-            throw new BestResultNotFound(search.toLowerCase());
-        } else {
-            System.out.println("Наиболее подходящий варинат поиска "  + search.toLowerCase() + " = " + bestResult);
-            return bestResult;
+            throw new BestResultNotFound(search);
         }
+        System.out.println("Наиболее подходящий варинат поиска "  + search + " = " + bestResult);
+        return bestResult;
     }
 }

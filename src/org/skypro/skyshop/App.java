@@ -13,30 +13,24 @@ public class App {
 
         ProductBasket basket = new ProductBasket();
 
-        Product product1 = new SimpleProduct("    ", -1);
         try {
-            Product.checkTitle(product1.getTitle());
+            SimpleProduct product1 = new SimpleProduct("Ноутбук", 50000);
+            product1.checkTitle(product1.getTitle());
+            product1.checkPrice(product1.getPrice());
         } catch (IllegalArgumentException e) {
-            System.out.println("Неверное наименование товара");
-        }
-        try {
-            SimpleProduct.checkPrice(product1.getPrice());
-        } catch (IllegalArgumentException e) {
-            System.out.println("Неверно указана цена товара");
+            System.out.println(e.getMessage());
         }
 
-        DiscountedProduct product2 = new DiscountedProduct("Рубашка", -1, 101);
         try {
-            DiscountedProduct.checkBasicPrice(product2.getBasicPrice());
+            DiscountedProduct product2 = new DiscountedProduct("Рубашка", 1000, 100);
+            product2.checkBasicPrice(product2.getBasicPrice());
+            product2.checkPercentDiscount(product2.getPercentDiscount());
         } catch (IllegalArgumentException e) {
-            System.out.println("Неверно указана базовая цена товара");
-        }
-        try {
-            DiscountedProduct.checkPercentDiscount(product2.getPercentDiscount());
-        } catch (IllegalArgumentException e) {
-            System.out.println("Неверно указан процент скидки товара");
+            System.out.println(e.getMessage());
         }
 
+        Product product1 = new SimpleProduct("Ноутбук", 50000);
+        Product product2 = new DiscountedProduct("Рубашка", 1000, 100);
         Product product3 = new FixPriceProduct("Чехол для смартфона");
         Product product4 = new SimpleProduct("Часы", 5000);
         Product product5 = new DiscountedProduct("Книга", 900, 10);

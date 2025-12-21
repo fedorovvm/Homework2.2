@@ -7,8 +7,11 @@ public abstract class Product implements Searchable {
 
 
 
-    public Product(String title) {
+    public Product(String title) throws IllegalArgumentException {
         this.title = title;
+        if (title.isBlank()) {
+            throw new IllegalArgumentException("Недопустимое наименование товара");
+        }
 
     }
 
@@ -30,9 +33,9 @@ public abstract class Product implements Searchable {
     public String getStringRepresentation() {
         return gettingSearchTerm() + " - " + gettingContentType();
     }
-    public static void checkTitle(String title) throws IllegalArgumentException {
+    public void checkTitle(String title) throws IllegalArgumentException {
         if (title.isBlank()) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("Недопустимое наименование товара");
         }
 
     }
