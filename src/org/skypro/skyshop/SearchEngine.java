@@ -9,7 +9,7 @@ public class SearchEngine {
         currentSize = 0;
     }
 
-    public static Searchable[] search(String searchString) {
+    public Searchable[] search(String searchString) {
         Searchable[] results = new Searchable[5];
         int number = 0;
         for (Searchable n : searchables)
@@ -20,14 +20,14 @@ public class SearchEngine {
         return results;
     }
 
-    public static void add(Searchable searchable) {
+    public void add(Searchable searchable) {
         if (currentSize <= searchables.length) {
             searchables[currentSize] = searchable;
             currentSize++;
         }
     }
 
-    public static Searchable searchBestResult(String search) throws BestResultNotFound {
+    public Searchable searchBestResult(String search) throws BestResultNotFound {
         int number;
         int best = 0;
         int index;

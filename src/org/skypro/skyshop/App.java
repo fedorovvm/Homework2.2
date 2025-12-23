@@ -6,7 +6,6 @@ import org.skypro.skyshop.product.FixPriceProduct;
 import org.skypro.skyshop.product.Product;
 import org.skypro.skyshop.product.SimpleProduct;
 import java.util.Arrays;
-import static org.skypro.skyshop.SearchEngine.add;
 
 public class App {
     public static void main(String[] args) {
@@ -52,24 +51,24 @@ public class App {
         basket.searchProduct("Часы");
 
         SearchEngine searchEngine = new SearchEngine(10);
-        add(new SimpleProduct("Ноутбук", 50000));
-        add(new DiscountedProduct("Рубашка Рубашка Рубашка", 1000, 5));
-        add(new FixPriceProduct("Чехол для смартфона"));
-        add(new SimpleProduct("Часы", 5000));
-        add(new SimpleProduct("Часы", 3000));
-        add(new DiscountedProduct("Книга", 900, 10));
+        searchEngine.add(new SimpleProduct("Ноутбук", 50000));
+        searchEngine.add(new DiscountedProduct("Рубашка Рубашка Рубашка", 1000, 5));
+        searchEngine.add(new FixPriceProduct("Чехол для смартфона"));
+        searchEngine.add(new SimpleProduct("Часы", 5000));
+        searchEngine.add(new SimpleProduct("Часы", 3000));
+        searchEngine.add(new DiscountedProduct("Книга", 900, 10));
 
-        add(new Article("Ноутбук", "Китайский Ноутбук"));
-        add(new Article("Часы", "Швейцарские Часы"));
-        add(new Article("Книга", "Занимательная книга"));
-        add(new Article("Книга 'Война и мир'", "Всем книгам книга"));
+        searchEngine.add(new Article("Ноутбук", "Китайский Ноутбук"));
+        searchEngine.add(new Article("Часы", "Швейцарские Часы"));
+        searchEngine.add(new Article("Книга", "Занимательная книга"));
+        searchEngine.add(new Article("Книга 'Война и мир'", "Всем книгам книга"));
 
-        System.out.println("Arrays.toString(SearchEngine.search(\"Часы\")) = " + Arrays.toString(SearchEngine.search("Часы")));
-        System.out.println("Arrays.toString(SearchEngine.search(\"Рубашка\")) = " + Arrays.toString(SearchEngine.search("Рубашка")));
-        System.out.println("Arrays.toString(SearchEngine.search(\"Книга\")) = " + Arrays.toString(SearchEngine.search("Книга")));
+        System.out.println("Arrays.toString(SearchEngine.search(\"Часы\")) = " + Arrays.toString(searchEngine.search("Часы")));
+        System.out.println("Arrays.toString(SearchEngine.search(\"Рубашка\")) = " + Arrays.toString(searchEngine.search("Рубашка")));
+        System.out.println("Arrays.toString(SearchEngine.search(\"Книга\")) = " + Arrays.toString(searchEngine.search("Книга")));
 
         try {
-            SearchEngine.searchBestResult("Книга");
+            searchEngine.searchBestResult("Книга");
         } catch (BestResultNotFound e) {
             System.out.println(e);
         }
