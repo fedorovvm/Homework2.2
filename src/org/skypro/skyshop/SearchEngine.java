@@ -1,30 +1,30 @@
 package org.skypro.skyshop;
 
+import org.skypro.skyshop.product.Product;
+
+import java.util.LinkedList;
+
 public class SearchEngine {
     private static int currentSize;
-    private static Searchable[] searchables;
+    private static LinkedList<Searchable> searchables;
 
     public SearchEngine(int size) {
-        searchables = new Searchable[size];
-        currentSize = 0;
+        this.searchables = new LinkedList<>();
+        this.currentSize = 0;
     }
 
-    public Searchable[] search(String searchString) {
-        Searchable[] results = new Searchable[5];
+    public LinkedList<Searchable> search(String searchString) {
+        LinkedList <Searchable> results = new LinkedList<>();
         int number = 0;
         for (Searchable n : searchables)
             if (n.gettingSearchTerm().contains(searchString)) {
-                results[number++] = n;
-                if (number == 5) break;
+                results.add(number++, n);
             }
         return results;
     }
 
     public void add(Searchable searchable) {
-        if (currentSize <= searchables.length) {
-            searchables[currentSize] = searchable;
-            currentSize++;
-        }
+            searchables.add(searchable);
     }
 
     public Searchable searchBestResult(String search) throws BestResultNotFound {

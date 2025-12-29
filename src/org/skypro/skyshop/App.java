@@ -6,12 +6,14 @@ import org.skypro.skyshop.product.FixPriceProduct;
 import org.skypro.skyshop.product.Product;
 import org.skypro.skyshop.product.SimpleProduct;
 import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class App {
+
     public static void main(String[] args) {
 
         ProductBasket basket = new ProductBasket();
-
         try {
             SimpleProduct product1 = new SimpleProduct("Ноутбук", 50000);
             product1.checkTitle(product1.getTitle());
@@ -27,7 +29,6 @@ public class App {
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
         }
-
         Product product1 = new SimpleProduct("Ноутбук", 50000);
         Product product2 = new DiscountedProduct("Рубашка", 1000, 100);
         Product product3 = new FixPriceProduct("Чехол для смартфона");
@@ -45,14 +46,19 @@ public class App {
         basket.gettingTotalCostOfTheBasket();
         basket.printsTheContentsOfTheBasket();
         basket.searchProduct("Часы");
+        System.out.println(basket.removeTheProduct("Часы"));
+        ProductBasket.printBacket();
+        System.out.println(basket.removeTheProduct("Тапочки"));
+        ProductBasket.printBacket();
         basket.clearBasket();
         basket.gettingTotalCostOfTheBasket();
         basket.printsTheContentsOfTheBasket();
         basket.searchProduct("Часы");
 
+
         SearchEngine searchEngine = new SearchEngine(10);
         searchEngine.add(new SimpleProduct("Ноутбук", 50000));
-        searchEngine.add(new DiscountedProduct("Рубашка Рубашка Рубашка", 1000, 5));
+        searchEngine.add(new DiscountedProduct("Рубашка", 1000, 5));
         searchEngine.add(new FixPriceProduct("Чехол для смартфона"));
         searchEngine.add(new SimpleProduct("Часы", 5000));
         searchEngine.add(new SimpleProduct("Часы", 3000));
@@ -63,9 +69,9 @@ public class App {
         searchEngine.add(new Article("Книга", "Занимательная книга"));
         searchEngine.add(new Article("Книга 'Война и мир'", "Всем книгам книга"));
 
-        System.out.println("Arrays.toString(SearchEngine.search(\"Часы\")) = " + Arrays.toString(searchEngine.search("Часы")));
-        System.out.println("Arrays.toString(SearchEngine.search(\"Рубашка\")) = " + Arrays.toString(searchEngine.search("Рубашка")));
-        System.out.println("Arrays.toString(SearchEngine.search(\"Книга\")) = " + Arrays.toString(searchEngine.search("Книга")));
+        System.out.println("Arrays.toString(SearchEngine.search(\"Часы\")) = " + Arrays.toString(new LinkedList[]{searchEngine.search("Часы")}));
+        System.out.println("Arrays.toString(SearchEngine.search(\"Рубашка\")) = " + Arrays.toString(new LinkedList[]{searchEngine.search("Рубашка")}));
+        System.out.println("Arrays.toString(SearchEngine.search(\"Книга\")) = " + Arrays.toString(new LinkedList[]{searchEngine.search("Книга")}));
 
         try {
             searchEngine.searchBestResult("Книга");
