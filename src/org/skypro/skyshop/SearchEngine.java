@@ -1,5 +1,8 @@
 package org.skypro.skyshop;
 
+import com.sun.source.tree.Tree;
+
+import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -8,7 +11,7 @@ public class SearchEngine {
     private int currentSize;
 
     public SearchEngine(int size) {
-        this.searchables = new TreeMap<>();
+        this.searchables = new HashMap<>();
         this.currentSize = 0;
     }
 
@@ -23,7 +26,9 @@ public class SearchEngine {
     }
 
     public void add(Searchable searchable) {
-        if (searchable == null) return;
+        if (searchable == null) {
+            return;
+        }
         searchables.put(searchable.getTitle(), searchable);
         currentSize++;
     }
