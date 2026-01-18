@@ -1,59 +1,70 @@
 package org.skypro.skyshop;
-
-import org.skypro.skyshop.product.Product;
-
-import java.util.LinkedList;
+import com.sun.source.tree.Tree;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.TreeMap;
 
 public class SearchEngine {
-    private static int currentSize;
-    private static LinkedList<Searchable> searchables;
+    private final Map<String, Searchable> searchables;
+    private int currentSize;
 
     public SearchEngine(int size) {
-        this.searchables = new LinkedList<>();
+        this.searchables = new HashMap<>();
         this.currentSize = 0;
     }
 
-    public LinkedList<Searchable> search(String searchString) {
-        LinkedList <Searchable> results = new LinkedList<>();
-        int number = 0;
-        for (Searchable n : searchables)
+    public Map<String, Searchable> search(String searchString) {
+        Map<String, Searchable> results = new TreeMap<>();
+        for (Searchable n : searchables.values()) {
             if (n.gettingSearchTerm().contains(searchString)) {
-                results.add(number++, n);
+                results.put(n.getTitle(), n);
             }
+        }
         return results;
     }
 
     public void add(Searchable searchable) {
-            searchables.add(searchable);
+        if (searchable == null) {
+            return;
+        }
+        searchables.put(searchable.getTitle(), searchable);
+        currentSize++;
     }
 
     public Searchable searchBestResult(String search) throws BestResultNotFound {
-        int number;
-        int best = 0;
-        int index;
-        int indexSubstring;
-        String str;
-        Searchable bestResult = null;
-        for (Searchable n : searchables) {
-            str = n.gettingSearchTerm().toLowerCase();
-            number = 0;
-            index = 0;
-            indexSubstring = str.indexOf(search.toLowerCase(), index);
+        if (search == null || search.isEmpty()) {
+            throw new BestResultNotFound("Search string is null or empty");
+        }
 
-            while (indexSubstring != -1) {
-                number++;
-                index = indexSubstring + search.length();
-                indexSubstring = str.indexOf(search.toLowerCase(), index);
-                if (number > best) {
-                    best = number;
-                    bestResult=n;
-                }
+        Searchable bestResult = null;
+        int maxOccurrences = 0;
+
+        for (Searchable n : searchables.values()) {
+            String term = n.gettingSearchTerm().toLowerCase();
+            String searchLower = search.toLowerCase();
+            int occurrences = countOccurrences(term, searchLower);
+
+            if (occurrences > maxOccurrences) {
+                maxOccurrences = occurrences;
+                bestResult = n;
             }
         }
+
         if (bestResult == null) {
             throw new BestResultNotFound(search);
         }
-        System.out.println("Наиболее подходящий варинат поиска "  + search + " = " + bestResult);
+
+        System.out.println("Наиболее подходящий вариант поиска '" + search + "' = " + bestResult);
         return bestResult;
+    }
+
+    private int countOccurrences(String text, String substring) {
+        int count = 0;
+        int index = 0;
+        while ((index = text.indexOf(substring, index)) != -1) {
+            count++;
+            index += substring.length();
+        }
+        return count;
     }
 }
