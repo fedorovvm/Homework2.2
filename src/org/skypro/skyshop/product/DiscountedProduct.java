@@ -12,8 +12,6 @@ public class DiscountedProduct extends Product {
         return percentDiscount;
     }
 
-
-
     public DiscountedProduct(String title, double basicPrice, int percentDiscount) throws IllegalArgumentException {
         super(title);
         this.basicPrice = basicPrice;

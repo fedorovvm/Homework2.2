@@ -5,9 +5,6 @@ import org.skypro.skyshop.product.DiscountedProduct;
 import org.skypro.skyshop.product.FixPriceProduct;
 import org.skypro.skyshop.product.Product;
 import org.skypro.skyshop.product.SimpleProduct;
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.concurrent.atomic.AtomicReference;
 
 public class App {
 
@@ -47,9 +44,9 @@ public class App {
         basket.printsTheContentsOfTheBasket();
         basket.searchProduct("Часы");
         System.out.println(basket.removeTheProduct("Часы"));
-        ProductBasket.printBacket();
+        basket.printBasket();
         System.out.println(basket.removeTheProduct("Тапочки"));
-        ProductBasket.printBacket();
+        basket.printBasket();
         basket.clearBasket();
         basket.gettingTotalCostOfTheBasket();
         basket.printsTheContentsOfTheBasket();
@@ -69,9 +66,9 @@ public class App {
         searchEngine.add(new Article("Книга", "Занимательная книга"));
         searchEngine.add(new Article("Книга 'Война и мир'", "Всем книгам книга"));
 
-        System.out.println("Arrays.toString(SearchEngine.search(\"Часы\")) = " + Arrays.toString(new LinkedList[]{searchEngine.search("Часы")}));
-        System.out.println("Arrays.toString(SearchEngine.search(\"Рубашка\")) = " + Arrays.toString(new LinkedList[]{searchEngine.search("Рубашка")}));
-        System.out.println("Arrays.toString(SearchEngine.search(\"Книга\")) = " + Arrays.toString(new LinkedList[]{searchEngine.search("Книга")}));
+        System.out.println("SearchEngine.search(\"Часы\") = " + searchEngine.search("Часы"));
+        System.out.println("SearchEngine.search(\"Рубашка\") = " + searchEngine.search("Рубашка"));
+        System.out.println("SearchEngine.search(\"Книга\") = " + searchEngine.search("Книга"));
 
         try {
             searchEngine.searchBestResult("Книга");
