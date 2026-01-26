@@ -62,8 +62,9 @@ public class App {
         searchEngine.add(new DiscountedProduct("Книга", 900, 10));
 
         searchEngine.add(new Article("Ноутбук", "Китайский Ноутбук"));
-        searchEngine.add(new Article("Часы", "Швейцарские Часы"));
-        searchEngine.add(new Article("Книга", "Занимательная книга"));
+        searchEngine.add(new Article("Часы 'Rolex'", "Швейцарские Часы"));
+        searchEngine.add(new Article("Часы 'Casio'", "Японские Часы"));
+        searchEngine.add(new Article("Книга 'Тихий Дон'", "Занимательная книга"));
         searchEngine.add(new Article("Книга 'Война и мир'", "Всем книгам книга"));
 
         System.out.println("SearchEngine.search(\"Часы\") = " + searchEngine.search("Часы"));

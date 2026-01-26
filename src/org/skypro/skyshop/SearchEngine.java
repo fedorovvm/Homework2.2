@@ -1,25 +1,32 @@
 package org.skypro.skyshop;
 import com.sun.source.tree.Tree;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
 
 public class SearchEngine {
-    private final Map<String, Searchable> searchables;
-    private int currentSize;
+    private final Set<Searchable> searchables;
+
 
     public SearchEngine(int size) {
-        this.searchables = new HashMap<>();
-        this.currentSize = 0;
+        this.searchables = new HashSet<>(size);
     }
 
-    public Map<String, Searchable> search(String searchString) {
-        Map<String, Searchable> results = new TreeMap<>();
-        for (Searchable n : searchables.values()) {
-            if (n.gettingSearchTerm().contains(searchString)) {
-                results.put(n.getTitle(), n);
+    public Set<Searchable> search(String searchString) {
+        Comparator<Searchable> comparator = (a, b) -> {
+            int lengthDiff = Integer.compare(b.getTitle().length(), a.getTitle().length());
+            if (lengthDiff != 0) {
+                return lengthDiff;
+            }
+            return a.getTitle().compareTo(b.getTitle());
+        };
+
+        Set<Searchable> results = new TreeSet<>(comparator);
+
+        for (Searchable n : searchables) {
+            if (n.gettingSearchTerm().toLowerCase().contains(searchString.toLowerCase())) {
+                results.add(n);
             }
         }
+
         return results;
     }
 
@@ -27,8 +34,7 @@ public class SearchEngine {
         if (searchable == null) {
             return;
         }
-        searchables.put(searchable.getTitle(), searchable);
-        currentSize++;
+        searchables.add(searchable);
     }
 
     public Searchable searchBestResult(String search) throws BestResultNotFound {
@@ -39,7 +45,7 @@ public class SearchEngine {
         Searchable bestResult = null;
         int maxOccurrences = 0;
 
-        for (Searchable n : searchables.values()) {
+        for (Searchable n : searchables) {
             String term = n.gettingSearchTerm().toLowerCase();
             String searchLower = search.toLowerCase();
             int occurrences = countOccurrences(term, searchLower);
