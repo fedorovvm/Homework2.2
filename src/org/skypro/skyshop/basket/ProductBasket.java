@@ -3,6 +3,7 @@ package org.skypro.skyshop.basket;
 import org.skypro.skyshop.product.Product;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class ProductBasket {
 
@@ -14,50 +15,42 @@ public class ProductBasket {
     }
 
     public double gettingTotalCostOfTheBasket() {
-        double totalCostOfTheBasket = 0;
-        for (List<Product> productList : products.values()) {
-            for (Product product : productList) {
-                totalCostOfTheBasket += product.getPrice();
-            }
-        }
-        return totalCostOfTheBasket;
+        return products.values().stream()
+                .flatMap(Collection::stream)
+                .mapToInt(Product::getPrice)
+                .sum();
     }
-
     public void printsTheContentsOfTheBasket() {
-        int content = 0;
-        int sumSpecialProdukt = 0;
-
         if (products.isEmpty()) {
             System.out.println("В корзине пусто.");
             return;
         }
 
-        for (List<Product> productList : products.values()) {
-            for (Product product : productList) {
-                if (product != null) {
-                    System.out.println(product);
-                    content++;
-                    if (product.isSpecial()) {
-                        sumSpecialProdukt++;
-                    }
-                }
-            }
-        }
+        long content = products.values().stream()
+                .flatMap(Collection::stream)
+                .count();
+
+        long specialCount = getSpecialCount();
+
+        products.values().stream()
+                .flatMap(Collection::stream)
+                .forEach(System.out::println);
 
         System.out.println("Итого: " + gettingTotalCostOfTheBasket());
-        System.out.println("Специальных товаров: " + sumSpecialProdukt);
+        System.out.println("Специальных товаров: " + specialCount);
+    }
+    private long getSpecialCount() {
+        return products.values().stream()
+                .flatMap(Collection::stream)
+                .filter(Product::isSpecial)
+                .count();
     }
 
     public boolean searchProduct(String titleProduct) {
-        for (List<Product> productList : products.values()) {
-            for (Product product : productList) {
-                if (product != null && product.getTitle().equalsIgnoreCase(titleProduct)) {
-                    System.out.println(titleProduct + " уже есть в корзине.");
-                    return true;
-                }
-            }
-        }
-        return false;
+        return products.values().stream()
+                .flatMap(Collection::stream)
+                .anyMatch(product -> product != null &&
+                        product.getTitle().equalsIgnoreCase(titleProduct));
     }
 
     public void clearBasket() {
@@ -71,23 +64,21 @@ public class ProductBasket {
             return removedProducts;
         }
 
-        Iterator<List<Product>> listIterator = products.values().iterator();
-        while (listIterator.hasNext()) {
-            List<Product> productList = listIterator.next();
+        List<Product> toRemove = products.values().stream()
+                .flatMap(Collection::stream)
+                .filter(product -> product != null &&
+                        product.getTitle() != null &&
+                        product.getTitle().equals(title))
+                .collect(Collectors.toList());
 
-            Iterator<Product> productIterator = productList.iterator();
-            while (productIterator.hasNext()) {
-                Product product = productIterator.next();
-                if (product != null && product.getTitle() != null && product.getTitle().equals(title)) {
-                    removedProducts.put(product.getTitle(), product);
-                    productIterator.remove();
-                }
-            }
+        toRemove.forEach(product -> removedProducts.put(product.getTitle(), product));
 
-            if (productList.isEmpty()) {
-                listIterator.remove();
-            }
-        }
+        products.values().forEach(list -> list.removeIf(product ->
+                product != null &&
+                        product.getTitle() != null &&
+                        product.getTitle().equals(title)));
+
+        products.entrySet().removeIf(entry -> entry.getValue().isEmpty());
 
         if (removedProducts.isEmpty()) {
             System.out.println("Товар с названием '" + title + "' не найден.");
